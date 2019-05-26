@@ -1,0 +1,42 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+description = 'Live Order Board for silver bars market palce.'
+buildDir = 'target'
+
+def langLevel = 1.8
+sourceCompatibility = langLevel
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile 'commons-lang:commons-lang:2.6'
+
+	testCompile 'junit:junit:4.12'
+	testCompile 'org.hamcrest:hamcrest-all:1.3'
+	testCompile 'org.codehaus.gpars:gpars:1.2.1' //todo: perhaps could be removed
+
+	testCompile 'nl.jqno.equalsverifier:equalsverifier:2.3.3'
+	testCompile 'org.mutabilitydetector:MutabilityDetector:0.9.6'
+
+	testCompile 'org.codehaus.groovy:groovy-all:2.4.7'
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+	testRuntime 'cglib:cglib-nodep:2.2.2'        // allows mocking of classes (in addition to interfaces)
+	testRuntime 'org.objenesis:objenesis:1.2'    // allows mocking of classes without default constructor (together with CGLIB)
+}
+
+test {
+	testLogging {
+		events 'passed', 'skipped', 'failed'
+	}
+}
+
+idea {
+	project {
+		jdkName = langLevel
+		languageLevel = langLevel
+	}
+}
